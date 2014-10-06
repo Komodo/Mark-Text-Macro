@@ -20,6 +20,7 @@ else
     var log     = ko.logging.getLogger("ext_markselect");
     var editor  = ko.views.manager.currentView.scimoz;
     var self    = this;
+    //log.setLevel(10);
 
     this.init = function()
     {
@@ -39,8 +40,8 @@ else
     {
         if ( ! editor) return false;
 
-        var color = ko.prefs.getLong('ext_marksel_color',
-                                     require("ko/color").RGBToBGR("#FF0000"));
+        var hexToLong = ("require" in window) ? require("ko/color").RGBToBGR : xtk.color.hexToLong;
+        var color = ko.prefs.getLong('ext_marksel_color', hexToLong("#FF0000"));
 
         editor.indicSetStyle(30, editor.INDIC_STRAIGHTBOX);
         editor.indicSetFore(30, color);
